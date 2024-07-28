@@ -4,11 +4,13 @@
             {{ __('Tasks') }}
         </h2>
 
-        <a class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
+        <button wire:click="showAddTaskModal"
+                class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
             Add Task
-        </a>
+        </button>
     </div>
 </x-slot>
+
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -51,12 +53,14 @@
                                     {{ $task->user->name }}
                                 </td>
                                 <td class="text-center flex flex-col md:flex-row items-center justify-center mt-2">
-                                    <a class="bg-gray-800 w-full md:w-auto flex-1 md:flex-grow-0 mx-2 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                                    <a href="{{ route('edit-task', ['task' => $task->id]) }}"
+                                       class="bg-gray-800 w-full md:w-auto flex-1 md:flex-grow-0 mx-2 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                         Edit
                                     </a>
-                                    <a class="bg-red-600 w-full md:w-auto flex-1 md:flex-grow-0 mt-1 md:mt-0 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                                    <button type="button"
+                                            class="bg-red-600 w-full md:w-auto flex-1 md:flex-grow-0 mt-1 md:mt-0 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                         Delete
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
