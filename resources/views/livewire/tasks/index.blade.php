@@ -5,7 +5,8 @@
         </h2>
 
         <a href="{{ route('add-task')}}"
-                class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
+           wire:navigate
+           class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
             Add Task
         </a>
 
@@ -54,11 +55,20 @@
                                     {{ $task->user->name }}
                                 </td>
                                 <td class="text-center flex flex-col md:flex-row items-center justify-center mt-2">
-                                    <a href="{{ route('edit-task', ['task' => $task->id]) }}"
+                                    <a href="{{ route('view-task', ['task' => $task->id]) }}"
+                                       wire:navigate
                                        class="bg-gray-800 w-full md:w-auto flex-1 md:flex-grow-0 mx-2 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                                        View
+                                    </a>
+                                    <a href="{{ route('edit-task', ['task' => $task->id]) }}"
+                                       wire:navigate
+                                       class="bg-gray-800 w-full mt-1 md:mt-0 md:w-auto flex-1 md:flex-grow-0 mx-2 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                         Edit
                                     </a>
                                     <button type="button"
+                                            wire:click="deleteTask({{ $task->id }})"
+                                            wire:confirm="Are you sure you want to delete this task?"
+
                                             class="bg-red-600 w-full md:w-auto flex-1 md:flex-grow-0 mt-1 md:mt-0 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                         Delete
                                     </button>

@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Task extends Component
 {
@@ -18,5 +19,12 @@ class Task extends Component
         $this->tasks = TaskModel::latest()->paginate(10)->getCollection();
 
         return view('livewire.tasks.index')->layout('layouts.app');
+    }
+
+    public function deleteTask(int $taskId): Redirector
+    {
+        TaskModel::find($taskId)->delete();
+
+        return redirect()->to(request()->header('Referer'));
     }
 }

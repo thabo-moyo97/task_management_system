@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Task;
 use App\TaskStatus;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
