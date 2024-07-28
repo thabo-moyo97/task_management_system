@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Tasks;
 
 use App\Models\Task;
 use App\TaskStatus;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Component;
-use Livewire\Features\SupportRedirects\Redirector;
 
-class EditTask extends Component
+class TaskForm extends Component
 {
-    public ?Task $task;
-
-    public string $title;
-    public TaskStatus $status;
-    public string $description;
+    public ?Task $task = null;
+    public string $title = '';
+    public TaskStatus $status ;
+    public string $description = '';
 
     public function rules(): array
     {
@@ -40,15 +37,17 @@ class EditTask extends Component
         ];
     }
 
-    public function mount(Task $task)
+    public function mount(?Task $task = null)
     {
-        $this->task = $task;
-        $this->title = $task->title;
-        $this->status = $task->status;
-        $this->description = $task->description;
+        if ($task) {
+            $this->task = $task;
+            $this->title = $task->title;
+            $this->status = $task->status;
+            $this->description = $task->description;
+        }
     }
 
-    public function saveTask(): Redirector
+    public function saveTask()
     {
         $validated = $this->validate();
 
@@ -56,13 +55,17 @@ class EditTask extends Component
             return redirect()->route('login');
         }
 
-        $this->task->update($validated);
+        if ($this->task) {
+            $this->task->update($validated);
+        } else {
+            Task::create($validated);
+        }
 
         return redirect()->route('tasks');
     }
 
     public function render()
     {
-        return view('livewire.edit-task')->layout('layouts.app');
+        return view('livewire.tasks.task-form')->layout('layouts.app');
     }
 }

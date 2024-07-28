@@ -7,7 +7,7 @@
         </a>
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Editing Task: ' . $task->title) }}
+                {{ $task ? __('Editing Task: ' . $task->title) : __('Add New Task') }}
             </h2>
         </div>
     </div>
@@ -20,7 +20,7 @@
                     <div class="mb-4">
                         <x-input-label for="title" class="block text-gray-700">Title</x-input-label>
                         <x-text-input required type="text" id="title" wire:model="title" class="mt-1 block w-full"
-                                      value="{{ $task->title }}"
+                                      value="{{ $title }}"
                         />
                         @error('title') <span class="text-red-500">{{ $message }}</span> @enderror
                     </div>
@@ -29,15 +29,10 @@
                         <label for="status" class="block text-gray-700">Status</label>
                         <select id="status" wire:model="status"
                                 class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                            <option value="to_do" @if($task->status === TaskStatus::TO_DO) selected @endif>To Do
-                            </option>
-                            <option value="in_progress" @if($task->status === TaskStatus::IN_PROGRESS) selected @endif>In
-                                Progress
-                            </option>
-                            <option value="completed" @if($task->status === TaskStatus::COMPLETED) selected @endif>Completed
-                            </option>
-                            <option value="cancelled" @if($task->status === TaskStatus::COMPLETED) selected @endif>Cancelled
-                            </option>
+                            <option value="to_do" @if($status === TaskStatus::TO_DO) selected @endif>To Do</option>
+                            <option value="in_progress" @if($status === TaskStatus::IN_PROGRESS) selected @endif>In Progress</option>
+                            <option value="completed" @if($status === TaskStatus::COMPLETED) selected @endif>Completed</option>
+                            <option value="cancelled" @if($status === TaskStatus::CANCELLED) selected @endif>Cancelled</option>
                         </select>
                         @error('status') <span class="text-red-500">{{ $message }}</span> @enderror
                     </div>
@@ -46,7 +41,7 @@
                         <textarea id="description" wire:model="description"
                                   rows="5"
                                   class="w-full text-left whitespace-normal border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                            {{ $task->description }}
+                            {{ $description }}
                         </textarea>
                         @error('description') <span class="text-red-500">{{ $message }}</span> @enderror
 
@@ -56,6 +51,7 @@
                                 Save
                             </button>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>

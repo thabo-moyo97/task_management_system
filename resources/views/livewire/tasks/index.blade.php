@@ -4,10 +4,11 @@
             {{ __('Tasks') }}
         </h2>
 
-        <button wire:click="showAddTaskModal"
+        <a href="{{ route('add-task')}}"
                 class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
             Add Task
-        </button>
+        </a>
+
     </div>
 </x-slot>
 
