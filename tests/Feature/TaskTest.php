@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Tasks;
+use App\Models\Task;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,7 +14,7 @@ class TaskTest extends TestCase
      */
     public function testUserRelationship(): void
     {
-        $task = new Tasks();
+        $task = new Task();
         $relation = $task->user();
 
         $this->assertEquals('Illuminate\Database\Eloquent\Relations\BelongsTo', get_class($relation));
