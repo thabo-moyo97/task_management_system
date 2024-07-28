@@ -1,7 +1,7 @@
 <x-slot name="header">
-    <div class="flex justify-between">
+    <div class="flex justify-between items-center">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Task') }}
+            {{ __('Tasks') }}
         </h2>
 
         <a class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
@@ -25,7 +25,7 @@
                         <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Assigned to
                         </th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Actions
                         </th>
                     </tr>
@@ -50,8 +50,13 @@
                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                                     {{ $task->user->name }}
                                 </td>
-                                <td>
-
+                                <td class="text-center flex flex-col md:flex-row items-center justify-center mt-2">
+                                    <a class="bg-gray-800 w-full md:w-auto flex-1 md:flex-grow-0 mx-2 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                                        Edit
+                                    </a>
+                                    <a class="bg-red-600 w-full md:w-auto flex-1 md:flex-grow-0 mt-1 md:mt-0 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                                        Delete
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
