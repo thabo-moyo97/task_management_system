@@ -12,7 +12,20 @@ use Livewire\Component;
 class Status extends Component
 {
     public TaskStatus $status;
+    public string $color = '';
+    public string $label = '';
 
+    public function mount(TaskStatus $status)
+    {
+        $this->status = $status;
+        $this->loadStatus();
+    }
+
+    public function loadStatus()
+    {
+        $this->color = $this->getColor($this->status);
+        $this->label = $this->getLabel($this->status);
+    }
     public function render(): View|Factory|Application
     {
         return view('livewire.status', [
@@ -23,10 +36,10 @@ class Status extends Component
     private function getColor(TaskStatus $status): string
     {
         return match ($status) {
-            TaskStatus::IN_PROGRESS => 'bg-blue-600',
-            TaskStatus::COMPLETED => 'bg-green-600',
-            TaskStatus::CANCELLED => 'bg-red-600',
-            TaskStatus::TO_DO => 'bg-yellow-600',
+            TaskStatus::IN_PROGRESS => 'status-in-progress',
+            TaskStatus::COMPLETED => 'status-completed',
+            TaskStatus::CANCELLED => 'status-cancelled',
+            TaskStatus::TO_DO => 'status-to-do'
         };
     }
 

@@ -37,13 +37,16 @@ class TaskForm extends Component
         ];
     }
 
-    public function mount(?Task $task = null)
+    public function mount()
     {
-        if (isset($task)) {
-            $this->task = $task;
-            $this->title = $task->title;
-            $this->status = $task->status;
-            $this->description = $task->description;
+        if (isset($this->task)) {
+            $this->title = $this->task->title;
+            $this->status = $this->task->status;
+            $this->description = $this->task->description;
+        } else {
+            $this->title = '';
+            $this->status = TaskStatus::TO_DO;
+            $this->description = '';
         }
     }
 

@@ -49,7 +49,7 @@
                                     {{ $task->title }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-sm text-left leading-5 text-gray-500">
-                                    @livewire('status', ['status' => $task->status])
+                                    @livewire('status', ['status' => $task->status], key('status-'.$task->id))
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                                     {{ $task->user->name }}
