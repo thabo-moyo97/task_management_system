@@ -12,7 +12,7 @@ class TaskForm extends Component
 {
     public ?Task $task = null;
     public string $title = '';
-    public TaskStatus $status ;
+    public TaskStatus $status;
     public string $description = '';
 
     public function rules(): array
@@ -31,7 +31,7 @@ class TaskForm extends Component
             'task.title.string' => 'The title field must be a string.',
             'task.title.max' => 'The title field must not exceed 255 characters.',
             'task.status.required' => 'The status field is required.',
-            'task.status.enum' => 'The status field must',
+            'task.status.enum' => 'The status field must be one of: ' . implode(', ', array_column(TaskStatus::cases(), 'value')),
             'task.description.required' => 'The description field is required.',
             'task.description.string' => 'The description field must be a string.',
         ];
@@ -39,7 +39,7 @@ class TaskForm extends Component
 
     public function mount(?Task $task = null)
     {
-        if ($task) {
+        if (isset($task)) {
             $this->task = $task;
             $this->title = $task->title;
             $this->status = $task->status;
@@ -52,16 +52,19 @@ class TaskForm extends Component
         $validated = $this->validate();
 
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return $this->redirect(route('login'));
         }
 
         if ($this->task) {
             $this->task->update($validated);
         } else {
-            Task::create($validated);
+            Task::create([
+                ...$validated,
+                'user_id' => Auth::id(),
+            ]);
         }
 
-        return redirect()->route('tasks');
+        return $this->redirect(\App\Livewire\Tasks\Task::class);
     }
 
     public function render()

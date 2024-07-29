@@ -6,7 +6,7 @@ use App\Livewire\Tasks\Task;
 use App\Livewire\Tasks\ViewTask;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/tasks'); // Add this line to redirect the root URL to /tasks
+Route::redirect('/', '/tasks');
 
 Route::middleware(['auth'])->group(function () {
     Route::view('profile', 'profile')->name('profile');
