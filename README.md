@@ -41,4 +41,4 @@ password: password
 
 ### Testing
 #### 1. Run the tests:
-<pre>./vendor/bin/sail artisan test</pre>
+<pre>./vendor/bin/sail artisan test test/Feature</pre>
